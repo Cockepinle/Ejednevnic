@@ -70,10 +70,13 @@ namespace EjednevnicDZ
         }
 
         private void DeletingANote(object sender, RoutedEventArgs e)
-        { 
+        {
             if (buttonsEnabled == true && List.SelectedItem != null)
             {
                 zametka.Remove((Zametka)List.SelectedItem);
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string filePath = Path.Combine(desktopPath, "notes.json");
+                Serializer.Serialize(zametka, filePath); // перезаписываем файл без удаленной заметки
                 Refresh();
             }
         }
